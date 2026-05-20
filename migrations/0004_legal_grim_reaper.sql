@@ -1,0 +1,1 @@
+CREATE INDEX "embedding_vector_idx" ON "documents" USING hnsw ("embedding" vector_cosine_ops);
