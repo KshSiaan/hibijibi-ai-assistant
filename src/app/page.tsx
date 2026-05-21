@@ -9,7 +9,12 @@ import {
   ConversationEmptyState,
   ConversationScrollButton,
 } from "@/components/ai-elements/conversation";
-import { MessageSquareIcon, SendIcon, SparklesIcon } from "lucide-react";
+import {
+  MessageSquareIcon,
+  SendIcon,
+  SparklesIcon,
+  UploadCloudIcon,
+} from "lucide-react";
 import {
   Message,
   MessageContent,
@@ -25,6 +30,8 @@ import {
 import { useChat } from "@ai-sdk/react";
 import { Shimmer } from "@/components/ai-elements/shimmer";
 import { Spinner } from "@/components/ui/spinner";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function Home() {
   const { messages, sendMessage, status } = useChat();
@@ -48,13 +55,20 @@ export default function Home() {
               <SparklesIcon className="size-4 text-primary-foreground" />
             </div>
             <span className="font-semibold tracking-tight text-sm">
-              Nebula Chat
+              Hibijibi AI
             </span>
           </div>
-          <Avatar className="size-8">
-            <AvatarImage src="https://api.dicebear.com/9.x/dylan/svg?seed=George" />
-            <AvatarFallback>G</AvatarFallback>
-          </Avatar>
+          <div className="flex items-center gap-4">
+            <Button variant="ghost" asChild>
+              <Link href="/upload">
+                <UploadCloudIcon className="size-4 text-primary-foreground" />
+              </Link>
+            </Button>
+            <Avatar className="size-8">
+              <AvatarImage src="https://api.dicebear.com/9.x/dylan/svg?seed=George" />
+              <AvatarFallback>G</AvatarFallback>
+            </Avatar>
+          </div>
         </header>
 
         {/* Conversation */}

@@ -1,26 +1,20 @@
-import { embed, embedMany } from "ai";
-import { createHuggingFace } from '@ai-sdk/huggingface';
+"use server";
 
-const huggingface = createHuggingFace({
-    apiKey: process.env.HUGGINGFACE_API_KEY ?? '',
-});
-export async function generateEmbedding(text: string) {
+import { InferenceClient } from "@huggingface/inference";
 
-    const input = text.replace(/\n/g, " ");
-    const { embedding } = await embed({
-        model: huggingface.embeddingModel("google/embeddinggemma-300m"),
-        value: input,
+const client = new InferenceClient(process.env.HF_TOKEN);
+const MODEL = "google/embeddinggemma-300m";
+
+export async function generateEmbedding(text: string): Promise<number[]> {
+    const result = await client.featureExtraction({
+        model: MODEL,
+        inputs: text.replace(/\n/g, " "),
+        provider: "hf-inference",
     });
-
-    return embedding;
+    return Array.from(result as number[]);
 }
 
-export async function generateEmbeddings(texts: string[]) {
-    const inputs = texts.map((text) => text.replace(/\n/g, " "));
-    const { embeddings } = await embedMany({
-        model: huggingface.embeddingModel("google/embeddinggemma-300m"),
-        values: inputs,
-    });
-    return embeddings;
+export async function generateEmbeddings(texts: string[]): Promise<number[][]> {
+    const results = await Promise.all(texts.map((t) => generateEmbedding(t)));
+    return results;
 }
-
