@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Hibijibi AI Assistant
 
-## Getting Started
+> A learning-focused RAG (Retrieval-Augmented Generation) AI assistant project built with modern AI tooling and web technologies.
 
-First, run the development server:
+## Overview
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+**Hibijibi AI** is a personal experimental AI assistant project created for learning and exploration purposes.  
+The project was mainly built to explore the architecture and workflow behind modern RAG applications.
+
+It is designed as a showcase project for friends, collaborators.
+
+The assistant integrates vector search, embeddings, conversational AI, authentication, and document-based querying into a single application.
+
+## Features
+
+- RAG-based AI assistant
+- Document querying with embeddings
+- Secure authentication for protected uploads
+- Vector storage using NeonDB
+- Conversational AI workflow
+- Modern UI with shadcn/ui
+- Built using Next.js
+- Experimental AI integrations and SDK usage
+
+## Tech Stack
+
+### Frontend
+- Next.js
+- shadcn/ui
+- AI Elements (Vercel)
+
+### AI & RAG
+- LangChain
+- Gemma 4 (gemma-4-31b-it)
+- Google AI Embeddings (google/embeddinggemma-300m)
+- Hugging Face / HF Interface
+- AI SDK
+
+### Database
+- NeonDB (Vector Storage)
+
+### Authentication
+- BetterAuth
+
+## Environment Variables
+
+Create a `.env.local` file and include the following:
+```env
+HUGGINGFACE_TOKEN=your_huggingface_token
+GOOGLE_AI_API_KEY=your_google_ai_api_key
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
