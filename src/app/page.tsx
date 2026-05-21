@@ -10,6 +10,7 @@ import {
   ConversationScrollButton,
 } from "@/components/ai-elements/conversation";
 import {
+  LogInIcon,
   MessageSquareIcon,
   SendIcon,
   SparklesIcon,
@@ -32,10 +33,19 @@ import { Shimmer } from "@/components/ai-elements/shimmer";
 import { Spinner } from "@/components/ui/spinner";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { authClient } from "@/lib/auth-client";
+import {
+  Popover,
+  PopoverContent,
+  PopoverDescription,
+  PopoverHeader,
+  PopoverTitle,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 export default function Home() {
   const { messages, sendMessage, status } = useChat();
-
+  const { data } = authClient.useSession();
   const handleSubmit = ({ text }: { text: string; files: unknown[] }) => {
     if (!text.trim()) return;
     sendMessage({
@@ -59,15 +69,47 @@ export default function Home() {
             </span>
           </div>
           <div className="flex items-center gap-4">
-            <Button variant="ghost" asChild>
-              <Link href="/upload">
-                <UploadCloudIcon className="size-4 text-primary-foreground" />
-              </Link>
-            </Button>
-            <Avatar className="size-8">
-              <AvatarImage src="https://api.dicebear.com/9.x/dylan/svg?seed=George" />
-              <AvatarFallback>G</AvatarFallback>
-            </Avatar>
+            {data?.user?.role === "admin" && (
+              <Button variant="ghost" asChild>
+                <Link href="/upload">
+                  <UploadCloudIcon className="size-4 text-primary-foreground" />
+                </Link>
+              </Button>
+            )}
+            {data?.session ? (
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Avatar className="size-8">
+                    <AvatarImage src="https://api.dicebear.com/9.x/dylan/svg?seed=George" />
+                    <AvatarFallback>G</AvatarFallback>
+                  </Avatar>
+                </PopoverTrigger>
+                <PopoverContent>
+                  <PopoverHeader>
+                    <PopoverTitle>Log out?</PopoverTitle>
+                    <PopoverDescription>
+                      You are currently logged in. Do you want to log out?
+                    </PopoverDescription>
+                    <div className=" w-full flex justify-end items-center">
+                      <Button
+                        variant="destructive"
+                        size="sm"
+                        className="mt-3"
+                        onClick={() => authClient.signOut()}
+                      >
+                        Log out
+                      </Button>
+                    </div>
+                  </PopoverHeader>
+                </PopoverContent>
+              </Popover>
+            ) : (
+              <Button variant="secondary" asChild>
+                <Link href="/auth">
+                  Authenticate <LogInIcon />
+                </Link>
+              </Button>
+            )}
           </div>
         </header>
 

@@ -1,6 +1,6 @@
 import { cosineDistance, sql,gt,desc } from "drizzle-orm";
 import { generateEmbedding } from "./embed";
-import { documents } from "./db-schema";
+import { documents } from "./schema/db-schema";
 import { db } from "./db-config";
 
 

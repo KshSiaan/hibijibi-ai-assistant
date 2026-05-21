@@ -2,7 +2,7 @@
 
 import { chunkContent } from "@/lib/chunking";
 import { db } from "@/lib/db-config";
-import { documents } from "@/lib/db-schema";
+import { documents } from "@/lib/schema/db-schema";
 import { generateEmbeddings } from "@/lib/embed";
 import * as pdfjs from "pdfjs-dist/legacy/build/pdf.mjs";
 
